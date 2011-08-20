@@ -197,7 +197,11 @@ void borra() {
    FillRect(hDCMem, &R, Negro);
 }
 
-void linea(float x_ini, float y_ini, float x_fin, float y_fin) {
+void refresca() {
+   InvalidateRect(hWnd, NULL, FALSE);
+}
+
+void pinta_linea(float x_ini, float y_ini, float x_fin, float y_fin) {
    BeginPath(hDCMem);
    MoveToEx(hDCMem, int(x_ini), int(y_ini), NULL);
    LineTo(hDCMem, int(x_fin), int(y_fin));
@@ -207,11 +211,7 @@ void linea(float x_ini, float y_ini, float x_fin, float y_fin) {
    // InvalidateRect(hWnd, NULL, FALSE);
 }
 
-void refresca() {
-   InvalidateRect(hWnd, NULL, FALSE);
-}
-
-void rectangulo(float esq, float dalt, float dre, float baix) {
+void pinta_rectangulo(float esq, float dalt, float dre, float baix) {
    BeginPath(hDCMem);
    MoveToEx(hDCMem, int(esq), int(dalt), NULL);
    LineTo(hDCMem, int(esq), int(baix));
@@ -224,7 +224,7 @@ void rectangulo(float esq, float dalt, float dre, float baix) {
    InvalidateRect(hWnd, NULL, FALSE);  
 }
 
-void circulo(float x_cen, float y_cen, float radi) {
+void pinta_circulo(float x_cen, float y_cen, float radi) {
    BeginPath(hDCMem);
    Arc(hDCMem, int(x_cen - radi), int(y_cen - radi), 
                int(x_cen + radi), int(y_cen + radi),
