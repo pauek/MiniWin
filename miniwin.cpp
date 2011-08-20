@@ -26,8 +26,6 @@ HBITMAP         hBitmap;  // bitmap para pintar off-screen
 int             iWidth;   // width of the main window (and bitmap)
 int             iHeight;  // height of the main window (and bitmap)
 HDC             hDCMem;   // Device Context en memoria
-HPEN            hPen;     // Lápiz para pintar
-HBRUSH          Negro;    // Pincel negro para pintar el fondo
 std::queue<int> _teclas;  // cola de teclas
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -90,8 +88,6 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
     );
 
     hBitmap = NULL;
-    hPen    = CreatePen(PS_SOLID, 1, RGB(255, 255, 255));
-    Negro   = CreateSolidBrush(RGB(0, 0, 0));
 
     ShowWindow (hWnd, nFunsterStil);
 
@@ -164,6 +160,10 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd,
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+COLORREF _color = RGB(255, 255, 255);
+
+namespace miniwin {
+
 int tecla() {
     if (_teclas.empty()) return NINGUNA;
     
@@ -183,76 +183,124 @@ void espera(int miliseg) {
    Sleep(miliseg);
 }
 
-void muestra_mensaje(char* missatge) {
-   MessageBox(hWnd, missatge, "Mensaje...", MB_OK);
+void mensaje(std::string msj) {
+   MessageBox(hWnd, msj.c_str(), "Mensaje...", MB_OK);
 }
 
-bool muestra_pregunta(char* missatge) {
-  return MessageBox(hWnd, missatge, "Pregunta...", MB_OKCANCEL) == IDOK;
+bool pregunta(std::string msj) {
+   return MessageBox(hWnd, msj.c_str(), "Pregunta...", MB_OKCANCEL) == IDOK;
 }
 
 void borra() {
    RECT R;
    SetRect(&R, 0, 0, iWidth, iHeight);
-   FillRect(hDCMem, &R, Negro);
+   HBRUSH hBrush = CreateSolidBrush(RGB(0, 0, 0));
+   FillRect(hDCMem, &R, hBrush);
+   DeleteObject(hBrush);
 }
 
 void refresca() {
    InvalidateRect(hWnd, NULL, FALSE);
 }
 
-void pinta_linea(float x_ini, float y_ini, float x_fin, float y_fin) {
+void linea(float x_ini, float y_ini, float x_fin, float y_fin) {
    BeginPath(hDCMem);
    MoveToEx(hDCMem, int(x_ini), int(y_ini), NULL);
    LineTo(hDCMem, int(x_fin), int(y_fin));
    EndPath(hDCMem);
+   HPEN hPen = CreatePen(PS_SOLID, 1, _color);
    SelectObject(hDCMem, hPen);
    StrokePath(hDCMem);
+   DeleteObject(hPen);
    // InvalidateRect(hWnd, NULL, FALSE);
 }
 
-void pinta_rectangulo(float esq, float dalt, float dre, float baix) {
+inline void _rect(float izq, float arr, float der, float aba) {
    BeginPath(hDCMem);
-   MoveToEx(hDCMem, int(esq), int(dalt), NULL);
-   LineTo(hDCMem, int(esq), int(baix));
-   LineTo(hDCMem, int(dre), int(baix));
-   LineTo(hDCMem, int(dre), int(dalt));
-   LineTo(hDCMem, int(esq), int(dalt));
+   MoveToEx(hDCMem, int(izq), int(arr), NULL);
+   LineTo(hDCMem, int(izq), int(aba));
+   LineTo(hDCMem, int(der), int(aba));
+   LineTo(hDCMem, int(der), int(arr));
+   LineTo(hDCMem, int(izq), int(arr));
    EndPath(hDCMem);
-   SelectObject(hDCMem, hPen);
-   StrokePath(hDCMem);
-   InvalidateRect(hWnd, NULL, FALSE);  
 }
 
-void pinta_circulo(float x_cen, float y_cen, float radi) {
-   BeginPath(hDCMem);
-   Arc(hDCMem, int(x_cen - radi), int(y_cen - radi), 
-               int(x_cen + radi), int(y_cen + radi),
-               int(x_cen - radi), int(y_cen - radi), 
-               int(x_cen - radi), int(y_cen - radi));
-   EndPath(hDCMem);
+void rectangulo(float izq, float arr, float der, float aba) {
+   _rect(izq, arr, der, aba);
+   HPEN hPen = CreatePen(PS_SOLID, 1, _color);
    SelectObject(hDCMem, hPen);
    StrokePath(hDCMem);
-   InvalidateRect(hWnd, NULL, FALSE);  
+   DeleteObject(hPen);
 }
 
-void pinta_texto(float x, float y, const std::string& texto) {
-   SetTextColor(hDCMem, RGB(255, 255, 255));
-   SetBkColor(hDCMem, RGB(0, 0, 0));
+void rectangulo_lleno(float izq, float arr, float der, float aba) {
+   _rect(izq, arr, der, aba);
+   HBRUSH hBrush = CreateSolidBrush(_color);
+   SelectObject(hDCMem, hBrush);
+   FillPath(hDCMem);
+   DeleteObject(hBrush);
+}
+
+inline void _circ(float x_cen, float y_cen, float radio) {
+   BeginPath(hDCMem);
+   Arc(hDCMem, int(x_cen - radio), int(y_cen - radio), 
+               int(x_cen + radio), int(y_cen + radio),
+               int(x_cen - radio), int(y_cen - radio), 
+               int(x_cen - radio), int(y_cen - radio));
+   EndPath(hDCMem);
+}
+
+void circulo(float x_cen, float y_cen, float radio) {
+   _circ(x_cen, y_cen, radio);
+   HPEN hPen = CreatePen(PS_SOLID, 1, _color);
+   SelectObject(hDCMem, hPen);
+   StrokePath(hDCMem);
+   DeleteObject(hPen);
+}
+
+void circulo_lleno(float x_cen, float y_cen, float radio) {
+   _circ(x_cen, y_cen, radio);
+   HBRUSH hBrush = CreateSolidBrush(_color);
+   SelectObject(hDCMem, hBrush);
+   FillPath(hDCMem);
+   DeleteObject(hBrush);
+}
+
+void texto(float x, float y, const std::string& texto) {
+   SetBkMode(hDCMem, TRANSPARENT);
+   SetTextColor(hDCMem, _color);
    TextOut(hDCMem, int(x), int(y), texto.c_str(), int(texto.size()));
 }
 
-int ventana_ancho() {
+static COLORREF _colores[] = {
+   RGB(0, 0, 0),       // NEGRO
+   RGB(255, 255, 255), // BLANCO
+   RGB(255, 0, 0),     // ROJO
+   RGB(0, 255, 0),     // VERDE
+   RGB(0, 0, 255),     // AZUL
+};
+
+void color(int c) {
+   _color = _colores[c];
+}
+
+void color_rgb(int r, int g, int b) {
+   _color = RGB(r, g, b);
+}
+
+int vancho() {
    return iWidth;
 }
 
-int ventana_alto() {
+int valto() {
    return iHeight;
 }
 
-void ventana_redimensiona(int ample, int alt) {
+void vredimensiona(int ample, int alt) {
    int frame = GetSystemMetrics(SM_CXFRAME);
    int titlebar = GetSystemMetrics(SM_CYSIZE);
    // FIXME: Calcular los tamaños correctamente...
    SetWindowPos(hWnd, NULL, 0, 0, ample + frame * 2, alt + frame * 2 + titlebar + 1, SWP_NOMOVE);
+}
+
 }

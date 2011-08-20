@@ -18,20 +18,27 @@ std::ostream& log();
 
 // Funciones del API
 
+namespace miniwin {
+  
 void borra();
 void refresca();
-void muestra_mensaje(char* missatge);
-bool muestra_pregunta(char* missatge);
+void mensaje(std::string msj);
+bool pregunta(std::string msj);
 void espera(int miliseg);
 
-int  ventana_ancho();
-int  ventana_alto();
-void ventana_redimensiona(int ample, int alt);
+int  vancho();
+int  valto();
+void vredimensiona(int ample, int alt);
 
-void pinta_linea(float x_ini, float y_ini, float x_fin, float y_fin);
-void pinta_rectangulo(float esq, float dalt, float dre, float baix);
-void pinta_circulo(float x_cen, float y_cen, float radi);
-void pinta_texto(float x, float y, const std::string& texto);
+void color(int c);
+void color_rgb(int r, int g, int b);
+
+void linea(float x_ini, float y_ini, float x_fin, float y_fin);
+void rectangulo(float esq, float dalt, float dre, float baix);
+void rectangulo_lleno(float izq, float arr, float der, float aba);
+void circulo(float x_cen, float y_cen, float radi);
+void circulo_lleno(float x_cen, float y_cen, float radi);
+void texto(float x, float y, const std::string& texto);
 
 int tecla();
 
@@ -44,5 +51,14 @@ enum {
   NINGUNA 
 };
 
+enum {
+  NEGRO,
+  BLANCO,
+  ROJO,
+  AZUL,
+  VERDE
+};
+
+}
 
 #endif
