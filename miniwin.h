@@ -31,6 +31,7 @@ void ventana_redimensiona(int ample, int alt);
 void linea(float x_ini, float y_ini, float x_fin, float y_fin);
 void rectangulo(float esq, float dalt, float dre, float baix);
 void circulo(float x_cen, float y_cen, float radi);
+void pinta_texto(float x, float y, const std::string& texto);
 
 int tecla();
 

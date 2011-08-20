@@ -236,6 +236,12 @@ void circulo(float x_cen, float y_cen, float radi) {
    InvalidateRect(hWnd, NULL, FALSE);  
 }
 
+void pinta_texto(float x, float y, const std::string& texto) {
+   SetTextColor(hDCMem, RGB(255, 255, 255));
+   SetBkColor(hDCMem, RGB(0, 0, 0));
+   TextOut(hDCMem, int(x), int(y), texto.c_str(), int(texto.size()));
+}
+
 int ventana_ancho() {
    return iWidth;
 }
