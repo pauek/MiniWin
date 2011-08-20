@@ -70,7 +70,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
     wincl.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 
     if (!RegisterClassEx (&wincl))
-        return 0;         
+       return 0;         
 
     hWnd = CreateWindowEx (
       0,                   /* Extended possibilites for variation */
@@ -93,10 +93,10 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 
     MSG messages;
     while (GetMessage (&messages, NULL, 0, 0)) {
-        TranslateMessage(&messages);
-        DispatchMessage(&messages);
+       TranslateMessage(&messages);
+       DispatchMessage(&messages);
     }
-
+    
     return messages.wParam;
 }
 
@@ -105,51 +105,51 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd,
                                   WPARAM wParam, 
                                   LPARAM lParam)
 {
-    switch (message) {
-    case WM_SIZE: {
-       if (hBitmap != NULL) {
-          DeleteObject(hBitmap);
-          DeleteDC(hDCMem);
-       }
-       RECT R;
-       GetClientRect(hWnd, &R);
-       iWidth  = R.right - R.left;
-       iHeight = R.bottom - R.top;
+   switch (message) {
+   case WM_SIZE: {
+      if (hBitmap != NULL) {
+         DeleteObject(hBitmap);
+         DeleteDC(hDCMem);
+      }
+      RECT R;
+      GetClientRect(hWnd, &R);
+      iWidth  = R.right - R.left;
+      iHeight = R.bottom - R.top;
 
-       HDC hDC = GetDC(hWnd);
-       hDCMem  = CreateCompatibleDC(hDC);
-       hBitmap = CreateCompatibleBitmap (hDC, iWidth, iHeight);
-       SelectObject(hDCMem, hBitmap);
-       call_main();       
-       break;
-    }                
-    case WM_PAINT: {
-       PAINTSTRUCT ps;
-       HDC hdc = BeginPaint(hWnd, &ps);
-       if (hBitmap != NULL) {
-          BitBlt(hdc, 0, 0, iWidth, iHeight, hDCMem, 0, 0, SRCCOPY);
-       }
-       EndPaint(hWnd, &ps);
-       break;
-    }
-    case WM_KEYDOWN: {
-       // TODO: Controlar más teclas  
-       if (wParam == VK_LEFT ||
-           wParam == VK_RIGHT ||
-           wParam == VK_UP ||
-           wParam == VK_DOWN ||
-           wParam == VK_ESCAPE) _teclas.push(wParam);
-       break;               
-    }
-    case WM_DESTROY: {
-       DeleteObject (hBitmap);
-       DeleteDC (hDCMem);
-       PostQuitMessage(0);
-       break;
-    }
-    default:
-       return DefWindowProc (hWnd, message, wParam, lParam);
-    }
+      HDC hDC = GetDC(hWnd);
+      hDCMem  = CreateCompatibleDC(hDC);
+      hBitmap = CreateCompatibleBitmap (hDC, iWidth, iHeight);
+      SelectObject(hDCMem, hBitmap);
+      call_main();       
+      break;
+   }                
+   case WM_PAINT: {
+      PAINTSTRUCT ps;
+      HDC hdc = BeginPaint(hWnd, &ps);
+      if (hBitmap != NULL) {
+         BitBlt(hdc, 0, 0, iWidth, iHeight, hDCMem, 0, 0, SRCCOPY);
+      }
+      EndPaint(hWnd, &ps);
+      break;
+   }
+   case WM_KEYDOWN: {
+      // TODO: Controlar más teclas  
+      if (wParam == VK_LEFT ||
+          wParam == VK_RIGHT ||
+          wParam == VK_UP ||
+          wParam == VK_DOWN ||
+          wParam == VK_ESCAPE) _teclas.push(wParam);
+      break;               
+   }
+   case WM_DESTROY: {
+      DeleteObject (hBitmap);
+      DeleteDC (hDCMem);
+      PostQuitMessage(0);
+      break;
+   }
+   default:
+      return DefWindowProc (hWnd, message, wParam, lParam);
+   }
 
     return 0;
 }
@@ -212,7 +212,6 @@ void linea(float x_ini, float y_ini, float x_fin, float y_fin) {
    SelectObject(hDCMem, hPen);
    StrokePath(hDCMem);
    DeleteObject(hPen);
-   // InvalidateRect(hWnd, NULL, FALSE);
 }
 
 inline void _rect(float izq, float arr, float der, float aba) {
@@ -300,7 +299,10 @@ void vredimensiona(int ample, int alt) {
    int frame = GetSystemMetrics(SM_CXFRAME);
    int titlebar = GetSystemMetrics(SM_CYSIZE);
    // FIXME: Calcular los tamaños correctamente...
-   SetWindowPos(hWnd, NULL, 0, 0, ample + frame * 2, alt + frame * 2 + titlebar + 1, SWP_NOMOVE);
+   SetWindowPos(hWnd, NULL, 0, 0, 
+                ample + frame * 2, 
+                alt + frame * 2 + titlebar + 1, 
+                SWP_NOMOVE);
 }
 
 }
