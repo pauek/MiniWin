@@ -22,22 +22,26 @@ siguiente:
 - Creas un nuevo proyecto en Dev-C++, del tipo "Windows Application",
   y le pones un nombre como por ejemplo "MiJuego":
 
-  .. image:: _static/devcpp1.png
+  .. image:: _static/devcpp1.png        
+     :align: center
 
 - DevC++ te pedirá guardar el proyecto (un fichero ``.dev``) en un
   directorio. Crea un directorio especial para el proyecto (supongamos
   "MiJuego" también).
 
 - Ahora aparecerá un fichero ``main.cpp`` en la pantalla principal de
-  edición con código C++ escrito. Cierra la ventana (observa que el
-  fichero no está guardado, porque tiene un asterisco en el nombre):
+  edición con código C++ escrito. Este fichero lo genera Dev-C++ y es
+  estándar. Debes cerrar la ventana (observa que el fichero no está
+  guardado, porque tiene un asterisco entre corchetes antes del nombre):
 
    .. image:: _static/devcpp2.png
+     :align: center
 
 - DevC++ preguntará si quieres guardar los cambios a ``main.cpp``. Dí
   que no:
 
    .. image:: _static/devcpp3.png
+     :align: center
 
   El proyecto quedará vacío.
 
@@ -49,6 +53,7 @@ siguiente:
   seleccionando "Añadir al proyecto":
 
   .. image:: _static/devcpp4.png
+     :align: center
 
 - Haz el programa principal (la función ``main``) en un fichero aparte
   (por ejemplo: ``mijuego.cpp``), y lo añades también al proyecto
