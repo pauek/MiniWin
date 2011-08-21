@@ -297,7 +297,4 @@ Otras funciones
 
    el programa se detiene durante un segundo.
 
-.. cpp:function:: 
-
-
 
