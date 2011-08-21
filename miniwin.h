@@ -44,20 +44,14 @@ void texto(float x, float y, const std::string& texto);
 int tecla();
 
 enum { 
-  IZQUIERDA, 
-  DERECHA, 
-  ARRIBA, 
-  ABAJO, 
+  IZQUIERDA, DERECHA, ARRIBA, ABAJO, 
   ESCAPE, 
   NINGUNA 
 };
 
 enum {
-  NEGRO,
-  BLANCO,
-  ROJO,
-  VERDE,
-  AZUL
+  NEGRO, ROJO, VERDE, AZUL,
+  AMARILLO, MAGENTA, CYAN, BLANCO
 };
 
 }

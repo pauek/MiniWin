@@ -276,10 +276,13 @@ void texto(float x, float y, const std::string& texto) {
 
 static COLORREF _colores[] = {
    RGB(0, 0, 0),       // NEGRO
-   RGB(255, 255, 255), // BLANCO
    RGB(255, 0, 0),     // ROJO
    RGB(0, 255, 0),     // VERDE
    RGB(0, 0, 255),     // AZUL
+   RGB(255, 255, 0),   // AMARILLO
+   RGB(255, 0, 255),   // MAGENTA
+   RGB(0, 255, 255),   // CYAN
+   RGB(255, 255, 255), // BLANCO   
 };
 
 void color(int c) {
