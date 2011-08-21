@@ -37,8 +37,8 @@ void color_rgb(int r, int g, int b);
 void linea(float x_ini, float y_ini, float x_fin, float y_fin);
 void rectangulo(float izq, float arr, float der, float aba);
 void rectangulo_lleno(float izq, float arr, float der, float aba);
-void circulo(float x_cen, float y_cen, float radi);
-void circulo_lleno(float x_cen, float y_cen, float radi);
+void circulo(float x_cen, float y_cen, float radio);
+void circulo_lleno(float x_cen, float y_cen, float radio);
 void texto(float x, float y, const std::string& texto);
 
 int tecla();
