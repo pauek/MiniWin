@@ -13,9 +13,22 @@ esencialmente para poder implementar programas muy simples (como
 pequeños juegos) que dibujen cosas por la pantalla y con los que se
 pueda interaccionar mínimamente. 
 
-Actualmente sirve solamente bajo Windows, pero mi intención es que
-eventualmente funcione en Linux también (si álguien me subvenciona un
-Mac, quizás entonces me plantee hacer incluso la versión Mac).
+Actualmente sirve solamente bajo Windows, pero la intención es que
+eventualmente funcione en Linux también (si álguien se ofrece a
+subvenciona un Mac, quizás entonces me plantee hacer incluso la
+versión Mac).
+
+Motivación
+----------
+
+MiniWin es una utilidad motivada por la realización de vídeos
+pedagógicos en la web sobre cursos de programación `minidosis
+<http://minidosis.org/C++>`_.
+
+Autores
+-------
+
+Pau Fernández (`Google+ <http://gplus.to/pauek>`_, `Twitter <http://twitter.com/pauek>`_)
 
 .. toctree::
    :maxdepth: 2
