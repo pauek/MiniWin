@@ -15,8 +15,8 @@ pueda interaccionar mínimamente.
 
 Actualmente sirve solamente bajo Windows, pero la intención es que
 eventualmente funcione en Linux también (si álguien se ofrece a
-subvenciona un Mac, quizás entonces me plantee hacer incluso la
-versión Mac).
+subvencionar un Mac, quizás entonces me plantee hacer incluso la
+versión Mac...).
 
 Motivación
 ----------

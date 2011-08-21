@@ -13,8 +13,8 @@ empezando esto no es evidente). Entornos de programación como `Dev-C++
 <http://www.codeblocks.org>`_ o `Geany <http://www.geany.org>`_
 permiten compilar este tipo de proyectos.
 
-Creación de proyectos MiniWin en Dev-C++
-----------------------------------------
+Crear un proyecto en Dev-C++ que usa MiniWin
+--------------------------------------------
 
 Para crear proyectos usando MiniWin en Dev-C++, debes hacer lo
 siguiente:
@@ -70,8 +70,8 @@ siguiente:
 
 Ahora puedes compilar el proyecto.
 
-Compilar con MiniWin en Geany
------------------------------
+Crear un proyecto en Geany que usa MiniWin
+------------------------------------------
 
 Para crear un proyecto que use MiniWin en Geany hay que seguir los
 siguientes pasos:
@@ -96,6 +96,9 @@ siguientes pasos:
         g++ -o mijuego.exe miniwin.o mijuego.o -mwindows
 
 Ahora, para compilar el proyecto, debes seleccionar la opción del menú
-"Construir" que pone "Compilar", pero la que aparece justo al lado de
-"Mayúsc + F9" (o apretar esa tecla). Mira la ventana de mensajes para
-comprobar que todo sale bien
+"Construir" que pone "Compilar", pero no la primera, sino la que
+aparece justo al lado de "Mayúsc + F9" (o si quieres, presiona esa
+combinacińod e teclas). Mira la ventana de mensajes para comprobar que
+todo sale bien.
+
+
