@@ -28,7 +28,11 @@ pedagógicos en la web sobre cursos de programación `minidosis
 Autores
 -------
 
-Pau Fernández (`Google+ <http://gplus.to/pauek>`_, `Twitter <http://twitter.com/pauek>`_)
+Pau Fernández (`Google+ <http://gplus.to/pauek>`_, `Twitter
+<http://twitter.com/pauek>`_)
+
+Índice
+------
 
 .. toctree::
    :maxdepth: 2
