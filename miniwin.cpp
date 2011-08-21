@@ -136,23 +136,23 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd,
      bool push_it = false;
 
      // Escape
-     push_it ||= (wParam == VK_ESCAPE);
+     push_it |= (wParam == VK_ESCAPE);
 
      // Flechas
-     push_it ||= (wParam == VK_LEFT ||
-                  wParam == VK_RIGHT ||
-                  wParam == VK_UP ||
-                  wParam == VK_DOWN);
+     push_it |= (wParam == VK_LEFT ||
+                 wParam == VK_RIGHT ||
+                 wParam == VK_UP ||
+                 wParam == VK_DOWN);
 
      // Números 0-9
-     push_it || = (wParam >= 48 && wParam <= 57);
+     push_it |= (wParam >= 48 && wParam <= 57);
 
      // Letras A-Z
-     push_it || = (wParam >= 65 && wParam <= 90);
+     push_it |= (wParam >= 65 && wParam <= 90);
 
      // Teclas de función
      for (int i = 0; i < 10; i++) {
-       push_it ||= (wParam == (VK_F1 + i));
+       push_it |= (wParam == (VK_F1 + i));
      }
      
      if (push_it) _teclas.push(wParam);
