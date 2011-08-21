@@ -144,6 +144,11 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd,
                  wParam == VK_UP ||
                  wParam == VK_DOWN);
 
+     // Barra espaciadora
+     push_it |= (wParam == VK_SPACE);
+
+     push_it |= (wParam == VK_RETURN);
+
      // Números 0-9
      push_it |= (wParam >= 48 && wParam <= 57);
 
@@ -192,6 +197,8 @@ int tecla() {
     case VK_UP:     ret = ARRIBA; break;
     case VK_DOWN:   ret = ABAJO; break;
     case VK_ESCAPE: ret = ESCAPE; break;
+    case VK_SPACE:  ret = ESPACIO; break;
+    case VK_RETURN: ret = RETURN; break;
     case VK_F1:     ret = F1; break;
     case VK_F2:     ret = F2; break;
     case VK_F3:     ret = F3; break;
