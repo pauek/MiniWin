@@ -2,8 +2,8 @@
 Funciones
 =========
 
-MiniWin es *super*-simple: solo es un miniconjunto de funciones. Para usar
-MiniWin solamente hay que seguir 2 pasos importantes:
+MiniWin es *super*-simple: solo es un miniconjunto de funciones. Para
+usar MiniWin solamente hay que seguir 2 pasos importantes:
 
 - Poner arriba del programa principal::
 
@@ -49,9 +49,9 @@ Hay 3 funciones relacionadas con las dimensiones de la ventana.
 
 .. cpp:function:: void vredimensiona(int ancho, int alto)
 
-   Cambia las dimensiones (en píxeles) de la ventana. El primer
-   parámetro indica la anchura y el segundo la altura, ambos son
-   enteros. Por ejemplo::
+   Acción que cambia las dimensiones (en píxeles) de la ventana. El
+   primer parámetro indica la anchura y el segundo la altura, ambos
+   son enteros. Por ejemplo::
  
       vredimensiona(800, 600);
 
@@ -59,8 +59,9 @@ Hay 3 funciones relacionadas con las dimensiones de la ventana.
 
 .. cpp:function:: int vancho()
 
-   Averigua el ancho de la ventana en píxeles, devolviendo un entero.
-   Por ejemplo, el siguiente código utiliza la función :cpp:func:`vancho`::
+   Función que averigua el ancho de la ventana en píxeles, devolviendo
+   un entero.  Por ejemplo, el siguiente código utiliza la función
+   :cpp:func:`vancho`::
 
       int a = vancho();
       if (a > 500) {
@@ -69,15 +70,16 @@ Hay 3 funciones relacionadas con las dimensiones de la ventana.
 
 .. cpp:function:: int valto()
 
-   Averigua la altura de la ventana en píxeles, devolviendo un
-   entero. Es similar a :cpp:func:`vancho`.
+   Función que averigua la altura de la ventana en píxeles,
+   devolviendo un entero. Es similar a :cpp:func:`vancho`.
 
 .. cpp:function:: void vcierra()
 
-   La acción :cpp:func:`vcierra` cierra la ventana y termina el
-   programa.  Si no se llama esta función, cuando acaba la función
-   ``main`` la ventana se queda abierta mostrando el dibujo que
-   hayamos hecho, y hay que cerrarla manualmente.
+   Acción que cierra la ventana y termina el programa.  Si no se llama
+   esta acción, cuando acaba la función ``main`` la ventana se queda
+   abierta mostrando el dibujo que hayamos hecho, y hay que cerrarla
+   manualmente. Esto nos puede interesar para observar el dibujo que
+   hayamos hecho.
 
 
 Pintar en la ventana
@@ -87,9 +89,14 @@ Para pintar en la ventana hay que utilizar alguna de las acciones
 :cpp:func:`linea`, :cpp:func:`rectangulo`, :cpp:func:`circulo`, etc.
 y luego hay que invocar la acción :cpp:func:`refresca`. Esencialmente,
 todo lo que se pinta se acumula en un "buffer" y luego la acción
-:cpp:func:`refresca` muestra lo que se ha pintado en la ventana. Esto
-permite pintar muchas cosas y luego refrescar solo una vez, que es
-importante cuando se hacen juegos.
+:cpp:func:`refresca` hace visible en la ventana lo que se haya pintado
+previamente. Esto tiene una ventaja y un inconveniente. La ventaja es
+que permite pintar muchas cosas y luego refrescar solo una vez, que es
+importante cuando se hacen juegos. El inconveniente es que si se
+olvida la llamada a :cpp:func:`refresca`, entonces no aparece por
+pantalla nada de lo que se ha pintado y puede parecer que no funciona
+nuestro programa. En definitiva, es importante *recordar llamar a
+:cpp:func:`refresca` al acabar de pintar*.
 
 Para cambiar el color con el que se pinta, hay que llamar a la función
 :cpp:func:`color` antes de pintar, es decir, todo lo que se pinta
@@ -106,6 +113,7 @@ Por ejemplo, el siguiente programa
 muestra el siguiente dibujo:
 
 .. image:: _static/ex1.png
+   :align: center
 
 En MiniWin disponemos de las siguiente acciones para pintar objetos:
 
@@ -123,17 +131,17 @@ En MiniWin disponemos de las siguiente acciones para pintar objetos:
 .. cpp:function:: void rectangulo(float izq, float arr, float der, float aba)
 
    Dibuja el borde de un rectángulo con coordenadas horizontales (las
-   *x) *izq* y *der* y verticales *arr* y *aba*.
+   *x*) *izq* y *der* y verticales (las *y*) *arr* y *aba*.
  
 .. cpp:function:: void rectangulo_lleno(float izq, float arr, float der, float aba)
 
    Dibuja un rectángulo relleno con coordenadas horizontales (las
-   *x) *izq* y *der* y verticales *arr* y *aba*.
+   *x*) *izq* y *der* y verticales (las *y*) *arr* y *aba*.
 
 .. cpp:function:: void circulo(float x_cen, float y_cen, float radio)
 
    Dibuja una circumferencia con el centro en (*x_cen*, *y_cen*) y con un
-   radio de valor *radio*. Si llamamos::
+   cierto *radio*. Si llamamos::
 
       circulo(50, 100, 20);
 
@@ -142,7 +150,7 @@ En MiniWin disponemos de las siguiente acciones para pintar objetos:
 .. cpp:function:: void circulo_lleno(float x_cen, float y_cen, float radi)
 
    Dibuja un círculo (relleno) con el centro en (*x_cen*, *y_cen*) y
-   con un radio de valor *radio*.
+   con un cierto *radio*.
 
 .. cpp:function:: void texto(float x, float y, const std::string& texto)
 
@@ -175,7 +183,8 @@ importante llamar a la acción :cpp:func:`refresca`:
 .. cpp:function:: void refresca()
 
    Pone en la ventana todo los objetos pintados acumulados. Muy
-   importante llamar a esta acción después de pintar. Por ejemplo, para pintar una línea (que se añade a todo lo anterior::
+   importante llamar a esta acción después de pintar. Por ejemplo,
+   para pintar una línea (que se añade a todo lo anterior::
 
      linea(0, 0, 100, 100);
      refresca();
