@@ -202,12 +202,17 @@ Funciones para teclas
    :cpp:func:`tecla` varias veces y se irán obteniendo las teclas
    presionadas por orden.
 
+   Si no se ha presionado ninguna tecla, se devuelve la constante
+   ``NINGUNA``
+
    Para evitar tener que recordar qué enteros representan a cada
    tecla, MiniWin define las siguientes constantes:
 
    ================== ============================
    Tecla              Constante
    ================== ============================
+   Ninguna tecla      ``NINGUNA``
+   ------------------ ----------------------------
    Esc                ``ESCAPE``
    ------------------ ----------------------------
    Flecha Arriba      ``ARRIBA``
@@ -217,7 +222,21 @@ Funciones para teclas
    Flecha Derecha     ``DERECHA``
    ------------------ ----------------------------
    Flecha Izquierda   ``IZQUIERDA``
+   ------------------ ----------------------------
+   Teclas de Función  ``F1``, ``F2`` hasta ``F10``
    ================== ============================
+
+   Para las letras y los números, el código devuelto es el mismo
+   código ASCII. Para los números entre 48 y 57 y para las letras
+   entre 65 y 90 (las mayúsculas).
+
+   El siguiente ejemplo detecta la presión de una tecla y si es la
+   letra ``A`` se muestra un mensaje::
+   
+      int t = tecla();
+      if (t == int('A')) {
+        mensaje("Has presionado la tecla 'A'");
+      } 
 
 
 Funciones para mensajes
