@@ -38,7 +38,6 @@ std::ostream& log() {
 VOID Thread(PVOID pvoid) { 
    Sleep(50); // FIXME
    _main_();
-   PostMessage(hWnd, WM_CLOSE, 0, 0);
 }
 
 void call_main() {
@@ -75,7 +74,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
     hWnd = CreateWindowEx (
       0,                   /* Extended possibilites for variation */
       szClassName,         /* Classname */
-      "Sense nom",         /* Title Text */
+      "MiniWin",           /* Title Text */
       WS_OVERLAPPEDWINDOW, /* default window */
       CW_USEDEFAULT,       /* Windows decides the position */
       CW_USEDEFAULT,       /* where the window ends up on the screen */
@@ -120,6 +119,7 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd,
       hDCMem  = CreateCompatibleDC(hDC);
       hBitmap = CreateCompatibleBitmap (hDC, iWidth, iHeight);
       SelectObject(hDCMem, hBitmap);
+      SetBkMode(hDCMem, TRANSPARENT);
       call_main();       
       break;
    }                
@@ -225,18 +225,20 @@ inline void _rect(float izq, float arr, float der, float aba) {
 }
 
 void rectangulo(float izq, float arr, float der, float aba) {
-   _rect(izq, arr, der, aba);
    HPEN hPen = CreatePen(PS_SOLID, 1, _color);
-   SelectObject(hDCMem, hPen);
+   HGDIOBJ orig = SelectObject(hDCMem, hPen);
+   _rect(izq, arr, der, aba);
    StrokePath(hDCMem);
+   SelectObject(hDCMem, orig);
    DeleteObject(hPen);
 }
 
 void rectangulo_lleno(float izq, float arr, float der, float aba) {
-   _rect(izq, arr, der, aba);
    HBRUSH hBrush = CreateSolidBrush(_color);
-   SelectObject(hDCMem, hBrush);
+   HGDIOBJ orig = SelectObject(hDCMem, hBrush);
+   _rect(izq, arr, der, aba);
    FillPath(hDCMem);
+   SelectObject(hDCMem, orig);
    DeleteObject(hBrush);
 }
 
@@ -250,23 +252,24 @@ inline void _circ(float x_cen, float y_cen, float radio) {
 }
 
 void circulo(float x_cen, float y_cen, float radio) {
-   _circ(x_cen, y_cen, radio);
    HPEN hPen = CreatePen(PS_SOLID, 1, _color);
-   SelectObject(hDCMem, hPen);
+   HGDIOBJ orig = SelectObject(hDCMem, hPen);
+   _circ(x_cen, y_cen, radio);
    StrokePath(hDCMem);
+   SelectObject(hDCMem, orig);
    DeleteObject(hPen);
 }
 
 void circulo_lleno(float x_cen, float y_cen, float radio) {
-   _circ(x_cen, y_cen, radio);
    HBRUSH hBrush = CreateSolidBrush(_color);
-   SelectObject(hDCMem, hBrush);
+   HGDIOBJ orig = SelectObject(hDCMem, hBrush);
+   _circ(x_cen, y_cen, radio);
    FillPath(hDCMem);
+   SelectObject(hDCMem, orig);
    DeleteObject(hBrush);
 }
 
 void texto(float x, float y, const std::string& texto) {
-   SetBkMode(hDCMem, TRANSPARENT);
    SetTextColor(hDCMem, _color);
    TextOut(hDCMem, int(x), int(y), texto.c_str(), int(texto.size()));
 }
@@ -303,6 +306,10 @@ void vredimensiona(int ample, int alt) {
                 ample + frame * 2, 
                 alt + frame * 2 + titlebar + 1, 
                 SWP_NOMOVE);
+}
+
+void vcierra() {
+  PostMessage(hWnd, WM_CLOSE, 0, 0);
 }
 
 }
