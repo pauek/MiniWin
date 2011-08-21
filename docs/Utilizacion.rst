@@ -232,11 +232,27 @@ también usando una ventanita especial.
    Muestra una pequeña ventana auxiliar con el mensaje *msj* y espera
    que se presione el botón "Ok".
 
+   Por ejemplo, si llamas a la acción así::
+
+      mensaje("MiniWin es fácil");
+
+   aparecerá una ventana como la siguiente:
+
+   .. image:: _static/msj1.png
+
 .. cpp:function:: bool pregunta(string msj)
 
    Muestra una ventana auxiliar con la pregunta que se pasa en *msj* y
    devuelve ``true`` o ``false`` en función de la contestación del
    usuario.
+
+   Por ejemplo, si llamas a la acción así::
+
+      pregunta("MiniWin te parece fácil?");
+
+   aparecerá una ventana como la siguiente:
+
+   .. image:: _static/msj2.png
 
 Otras funciones
 ---------------
