@@ -6,6 +6,8 @@
 Documentación de MiniWin
 ========================
 
+*Última actualización*: |today|.
+
 MiniWin es una mini-librería (para ser justos, no llega ni a eso)
 para poder abrir una ventana, pintar algunas cosas en ella y detectar
 la presión de algunas teclas. Tiene un objetivo *pedagógico*, sirve
@@ -22,7 +24,7 @@ Motivación
 ----------
 
 MiniWin es una utilidad motivada por la realización de vídeos
-pedagógicos en la web sobre cursos de programación `minidosis
+pedagógicos en la web sobre cursos de programación `minidosis.org
 <http://minidosis.org/C++>`_.
 
 Autores
