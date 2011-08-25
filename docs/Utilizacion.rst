@@ -30,10 +30,12 @@ Control de la ventana
 ---------------------
 
 En MiniWin, al ejecutar el programa principal siempre se creará una
-sola ventana, a la que nos referiremos como "la ventana". Algunas
-funciones utilizan coordenadas en esta ventana. Las coordenadas son un
-par ordenado de valores, donde el primer valor es *x* y el segundo es
-*y*:
+sola ventana, a la que nos referiremos como "la ventana". Esta ventana
+no se puede redimensionar con el ratón (solamente con la acción
+:cpp:func:`vredimensiona`) y mantiene el dibujo que pintas aunque la
+minimices.  Algunas funciones utilizan coordenadas en esta
+ventana. Las coordenadas son un par ordenado de valores, donde el
+primer valor es *x* y el segundo es *y*:
 
 - La esquina superior-derecha es el orígen, con coordenadas (0,0).
 

@@ -1,7 +1,7 @@
 
 /*
- *  MiniWin: Un mini-conjunto de funciones para abrir una ventana, pintar en 
- *    ella y detectar la presión de algunas teclas. Básicamente para hacer 
+ *  MiniWin: Un mini-conjunto de funciones para abrir una ventana, pintar en
+ *    ella y detectar la presión de algunas teclas. Básicamente para hacer
  *    juegos sencillos.
  *
  *  (c) Pau Fernández, licencia MIT: http://es.wikipedia.org/wiki/MIT_License
@@ -21,11 +21,11 @@ char szClassName[ ] = "MiniWin";
 
 // Variables globales //////////////////////////////////////////////////////////
 
-HWND            hWnd;     // ventana principal
-HBITMAP         hBitmap;  // bitmap para pintar off-screen
-int             iWidth;   // width of the main window (and bitmap)
-int             iHeight;  // height of the main window (and bitmap)
-HDC             hDCMem;   // Device Context en memoria
+HWND            hWnd;          // ventana principal
+HBITMAP         hBitmap;       // bitmap para pintar off-screen
+int             iWidth  = 400; // ancho de la ventana
+int             iHeight = 300; // alto de la ventana
+HDC             hDCMem = NULL;   // Device Context en memoria
 std::queue<int> _teclas;  // cola de teclas
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,17 +35,24 @@ std::ostream& log() {
    return _log;
 }
 
-VOID Thread(PVOID pvoid) { 
+VOID Thread(PVOID pvoid) {
    Sleep(50); // FIXME
    _main_();
 }
 
-void call_main() {
+void maybe_call_main() {
    static bool started = false;
    if (!started) {
       _beginthread(Thread, 0, NULL); // Llama a 'main' (realmente  '_main_')
       started = true;
    }
+}
+
+void frame_real(int w, int h, int& rw, int &rh) {
+   RECT frame = { 0, 0, w, h };
+   AdjustWindowRect(&frame, WS_OVERLAPPEDWINDOW, FALSE);
+   rw = frame.right - frame.left;
+   rh = frame.bottom - frame.top;
 }
 
 int WINAPI WinMain (HINSTANCE hThisInstance,
@@ -57,19 +64,22 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
     wincl.hInstance = hThisInstance;
     wincl.lpszClassName = szClassName;
     wincl.lpfnWndProc = WindowProcedure;
-    wincl.style = CS_DBLCLKS;           
+    wincl.style = CS_DBLCLKS;
     wincl.cbSize = sizeof (WNDCLASSEX);
 
     wincl.hIcon = LoadIcon (NULL, IDI_APPLICATION);
     wincl.hIconSm = LoadIcon (NULL, IDI_APPLICATION);
     wincl.hCursor = LoadCursor (NULL, IDC_ARROW);
-    wincl.lpszMenuName = NULL;                 
-    wincl.cbClsExtra = 0;                      
-    wincl.cbWndExtra = 0;                      
+    wincl.lpszMenuName = NULL;
+    wincl.cbClsExtra = 0;
+    wincl.cbWndExtra = 0;
     wincl.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 
     if (!RegisterClassEx (&wincl))
-       return 0;         
+       return 0;
+
+    int w, h;
+    frame_real(iWidth, iHeight, w, h);
 
     hWnd = CreateWindowEx (
       0,                   /* Extended possibilites for variation */
@@ -78,8 +88,8 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
       WS_OVERLAPPEDWINDOW, /* default window */
       CW_USEDEFAULT,       /* Windows decides the position */
       CW_USEDEFAULT,       /* where the window ends up on the screen */
-      800,                 /* The programs width */
-      600,                 /* and height in pixels */
+      w,                   /* The programs width */
+      h,                   /* and height in pixels */
       HWND_DESKTOP,        /* The window is a child-window to desktop */
       NULL,                /* No menu */
       hThisInstance,       /* Program Instance handler */
@@ -95,37 +105,85 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
        TranslateMessage(&messages);
        DispatchMessage(&messages);
     }
-    
+
     return messages.wParam;
 }
 
-LRESULT CALLBACK WindowProcedure (HWND hWnd, 
-                                  UINT message, 
-                                  WPARAM wParam, 
+LRESULT CALLBACK WindowProcedure (HWND hWnd,
+                                  UINT message,
+                                  WPARAM wParam,
                                   LPARAM lParam)
 {
    switch (message) {
    case WM_SIZE: {
-      if (hBitmap != NULL) {
-         DeleteObject(hBitmap);
-         DeleteDC(hDCMem);
-      }
+      log() << "WM_SIZE\n";
       RECT R;
       GetClientRect(hWnd, &R);
-      iWidth  = R.right - R.left;
-      iHeight = R.bottom - R.top;
+      int w = R.right - R.left;
+      int h = R.bottom - R.top;
+      log() << w << ' ' << h << ' ' << '\n';
+      if (w == 0 && h == 0) break; // Al minimizar envia WM_SIZE(0,0)
 
-      HDC hDC = GetDC(hWnd);
-      hDCMem  = CreateCompatibleDC(hDC);
-      hBitmap = CreateCompatibleBitmap (hDC, iWidth, iHeight);
-      SelectObject(hDCMem, hBitmap);
-      SetBkMode(hDCMem, TRANSPARENT);
-      call_main();       
+      if (hDCMem == NULL || w != iWidth || h != iHeight) {
+         if (hDCMem != NULL) {
+            DeleteObject(hBitmap);
+            DeleteDC(hDCMem);
+         }
+         log() << "New MemDC\n";
+         HDC hDC = GetDC(hWnd);
+         hDCMem  = CreateCompatibleDC(hDC);
+         hBitmap = CreateCompatibleBitmap (hDC, w, h);
+         SelectObject(hDCMem, hBitmap);
+         SetBkMode(hDCMem, TRANSPARENT);
+         maybe_call_main();
+      }
       break;
-   }                
+   }
+   case WM_SIZING: {
+      RECT* pRECT = (RECT*)lParam;
+      log() << pRECT->top << ' ' << pRECT->left << ' '
+            << pRECT->bottom << ' ' << pRECT->right << '\n';
+      log() << iHeight << '\n';
+      int w, h;
+      frame_real(iWidth, iHeight, w, h);
+      switch (wParam) {
+      case WMSZ_BOTTOM:
+         pRECT->bottom = pRECT->top + h;
+         break;
+      case WMSZ_TOP:
+         pRECT->top = pRECT->bottom - h;
+         break;
+      case WMSZ_RIGHT:
+         pRECT->right = pRECT->left + w;
+         break;
+      case WMSZ_LEFT:
+         pRECT->left = pRECT->right - w;
+         break;
+      case WMSZ_TOPLEFT:
+         pRECT->top = pRECT->bottom - h;
+         pRECT->left = pRECT->right - w;
+         break;
+      case WMSZ_TOPRIGHT:
+         pRECT->top = pRECT->bottom - h;
+         pRECT->right = pRECT->left + w;
+         break;
+      case WMSZ_BOTTOMLEFT:
+         pRECT->bottom = pRECT->top + h;
+         pRECT->left = pRECT->right - w;
+         break;
+      case WMSZ_BOTTOMRIGHT:
+         pRECT->bottom = pRECT->top + h;
+         pRECT->right = pRECT->left + w;
+         break;
+      }
+
+      return TRUE;
+   }
    case WM_PAINT: {
+      log() << "WM_PAINT\n";
       PAINTSTRUCT ps;
       HDC hdc = BeginPaint(hWnd, &ps);
+      SelectObject(hDCMem, hBitmap);
       if (hBitmap != NULL) {
          BitBlt(hdc, 0, 0, iWidth, iHeight, hDCMem, 0, 0, SRCCOPY);
       }
@@ -159,10 +217,10 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd,
      for (int i = 0; i < 10; i++) {
        push_it |= (wParam == (VK_F1 + i));
      }
-     
+
      if (push_it) _teclas.push(wParam);
 
-     break;               
+     break;
    }
    case WM_DESTROY: {
       DeleteObject (hBitmap);
@@ -189,7 +247,7 @@ namespace miniwin {
 
 int tecla() {
     if (_teclas.empty()) return NINGUNA;
-    
+
     int ret = NINGUNA;
     switch(_teclas.front()) {
     case VK_LEFT:   ret = IZQUIERDA; break;
@@ -284,9 +342,9 @@ void rectangulo_lleno(float izq, float arr, float der, float aba) {
 
 inline void _circ(float x_cen, float y_cen, float radio) {
    BeginPath(hDCMem);
-   Arc(hDCMem, int(x_cen - radio), int(y_cen - radio), 
+   Arc(hDCMem, int(x_cen - radio), int(y_cen - radio),
                int(x_cen + radio), int(y_cen + radio),
-               int(x_cen - radio), int(y_cen - radio), 
+               int(x_cen - radio), int(y_cen - radio),
                int(x_cen - radio), int(y_cen - radio));
    EndPath(hDCMem);
 }
@@ -322,7 +380,7 @@ static COLORREF _colores[] = {
    RGB(255, 255, 0),   // AMARILLO
    RGB(255, 0, 255),   // MAGENTA
    RGB(0, 255, 255),   // CYAN
-   RGB(255, 255, 255), // BLANCO   
+   RGB(255, 255, 255), // BLANCO
 };
 
 void color(int c) {
@@ -342,13 +400,11 @@ int valto() {
 }
 
 void vredimensiona(int ample, int alt) {
-   int frame = GetSystemMetrics(SM_CXFRAME);
-   int titlebar = GetSystemMetrics(SM_CYSIZE);
-   // FIXME: Calcular los tamaños correctamente...
-   SetWindowPos(hWnd, NULL, 0, 0, 
-                ample + frame * 2, 
-                alt + frame * 2 + titlebar + 1, 
-                SWP_NOMOVE);
+   iWidth = ample;
+   iHeight = alt;
+   int w, h;
+   frame_real(iWidth, iHeight, w, h);
+   SetWindowPos(hWnd, NULL, 0, 0, w, h, SWP_NOMOVE);
 }
 
 void vcierra() {
