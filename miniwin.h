@@ -34,6 +34,7 @@ void vcierra();
 void color(int c);
 void color_rgb(int r, int g, int b);
 
+void punto(float x, float y);
 void linea(float x_ini, float y_ini, float x_fin, float y_fin);
 void rectangulo(float izq, float arr, float der, float aba);
 void rectangulo_lleno(float izq, float arr, float der, float aba);

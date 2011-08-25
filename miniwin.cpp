@@ -239,6 +239,10 @@ void refresca() {
    InvalidateRect(hWnd, NULL, FALSE);
 }
 
+void punto(float x, float y) {
+  SetPixel(hDCMem, int(x), int(y), _color);
+}
+
 void linea(float x_ini, float y_ini, float x_fin, float y_fin) {
    BeginPath(hDCMem);
    MoveToEx(hDCMem, int(x_ini), int(y_ini), NULL);

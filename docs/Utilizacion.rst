@@ -2,7 +2,7 @@
 Funciones
 =========
 
-MiniWin es *super*-simple: solo es un miniconjunto de funciones. Para
+MiniWin es *super*-simple: sólo es un miniconjunto de funciones. Para
 usar MiniWin solamente hay que seguir 2 pasos importantes:
 
 - Poner arriba del programa principal::
@@ -116,6 +116,24 @@ muestra el siguiente dibujo:
    :align: center
 
 En MiniWin disponemos de las siguiente acciones para pintar objetos:
+
+.. cpp:function:: void punto(float x, float y)
+
+   Pinta un solo punto de la pantalla, en la posición (*x*, *y*). En
+   función de la resolución de la pantalla esto puede costar un poco
+   de ver.
+
+   Por ejemplo::
+   
+      color(AMARILLO);
+      punto(10, 10);
+      punto(9, 10);
+      punto(10, 9);
+      punto(10, 11);
+      punto(11, 10);
+      refresca();
+
+   pinta una minicruz centrada en la posición (10, 10).
 
 .. cpp:function:: void linea(float x_ini, float y_ini, float x_fin, float y_fin)
 
@@ -291,7 +309,8 @@ Otras funciones
 
 .. cpp:function:: void espera(int miliseg)
 
-   Detiene el programa un número de milisegundos especificado por *miliseg*. Por ejemplo, al hacer::
+   Detiene el programa un número de milisegundos especificado por
+   *miliseg*. Por ejemplo, al hacer::
 
       espera(1000);
 
