@@ -209,15 +209,15 @@ importante llamar a la acción :cpp:func:`refresca`:
      linea(0, 0, 100, 100);
      refresca();
 
-.. cpp:function:: void borrar()
+.. cpp:function:: void borra()
 
    Borra el "buffer" interno de pintado. Todo lo que se pinte después
    se pintará sobre un fondo negro, como al principio. Para borrar la
    pantalla y dejarla negra, habría que llamar a :cpp:func:`refresca`
-   después de llamar a :cpp:func:`borrar`. O sea, para borrar la
+   después de llamar a :cpp:func:`borra`. O sea, para borrar la
    pantalla completamente y hacerlo visible::
 
-     borrar();
+     borra();
      refresca();
 
 
