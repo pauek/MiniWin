@@ -33,6 +33,13 @@ Autores
 Pau Fernández (`Google+ <http://gplus.to/pauek>`_, `Twitter
 <http://twitter.com/pauek>`_)
 
+
+Contribuciones
+--------------
+
+Carlos (@mesjetiu en YouTube).
+
+
 Índice
 ------
 
