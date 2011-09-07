@@ -7,13 +7,26 @@
  *  (c) Pau Fernández, licencia MIT: http://es.wikipedia.org/wiki/MIT_License
  */
 
+// Constantes Sistemas Operativos: 
+// http://sourceforge.net/apps/mediawiki/predef/index.php?title=Operating_Systems
+
+#if defined(_WIN32)
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//   Versión Windows
+//
+////////////////////////////////////////////////////////////////////////////////
+
 #include <fstream>
+#include <sstream>
 #include <queue>
 #include <math.h>
 #include <process.h>
 #include <windows.h>
 
 #include "miniwin.h"
+
 
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
 
@@ -25,13 +38,18 @@ HWND            hWnd;          // ventana principal
 HBITMAP         hBitmap;       // bitmap para pintar off-screen
 int             iWidth  = 400; // ancho de la ventana
 int             iHeight = 300; // alto de la ventana
-HDC             hDCMem = NULL;   // Device Context en memoria
-std::queue<int> _teclas;  // cola de teclas
+HDC             hDCMem = NULL; // Device Context en memoria
+std::queue<int> _teclas;       // cola de teclas
 
 ////////////////////////////////////////////////////////////////////////////////
 
 std::ostream& log() {
+#if defined(DEBUG)
    static std::ofstream _log("log.txt");
+#else
+   static std::stringstream _log;
+   _log.str(""); // clear the log
+#endif
    return _log;
 }
 
@@ -412,3 +430,128 @@ void vcierra() {
 }
 
 }
+
+#elif defined(__linux__)
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//   Versión Linux
+//
+////////////////////////////////////////////////////////////////////////////////
+
+#include <X11/Xlib.h>
+#include <assert.h>
+#include <iostream>
+
+void loop();
+int _main_();
+
+// Ponemos el 'main' antes porque miniwin.h hace "define main _main_"
+int main() {
+  loop();
+}
+
+#include "miniwin.h"
+
+pthread_t thread;
+
+void *thread_fn(void *) {
+   std::cerr << "I was here!" << std::endl;
+   _main_();
+}
+
+Display *dpy;
+Window w;
+Colormap colormap;
+GC gc;
+
+static XColor _colores[8];
+
+void preparaColores(Display* dpy) {
+  colormap = DefaultColormap(dpy, 0);
+  const char *valores[8] = { "#000000", "#FF0000", "#00FF00", "#0000FF", 
+                             "#FFFF00", "#FF00FF", "#00FFFF", "#FFFFFF" };
+  for (int i = 0; i < 8; i++) {
+    XParseColor(dpy, colormap, valores[i], &_colores[i]);
+    XAllocColor(dpy, colormap, &_colores[i]);
+  }
+}
+
+void loop() {
+  dpy = XOpenDisplay(NULL);
+  assert(dpy);
+
+  preparaColores(dpy);
+
+  int black = BlackPixel(dpy, DefaultScreen(dpy));
+  w = XCreateSimpleWindow(dpy, DefaultRootWindow(dpy), 
+                          0, 0, 200, 200, 0,
+                          black, black);
+
+  XSelectInput(dpy, w, 
+               ExposureMask | 
+               KeyPressMask | 
+               ButtonPressMask | 
+               StructureNotifyMask);
+
+  XMapWindow(dpy, w);
+
+  // Queremos enterarnos de cuando se cierra la ventana
+  // http://linuxsoftware.co.nz/blog/2008/08/12/handling-window-close-in-an-x11-app
+  Atom wmDelete = XInternAtom(dpy, "WM_DELETE_WINDOW", True);
+  XSetWMProtocols(dpy, w, &wmDelete, 1);
+
+  gc = XCreateGC(dpy, w, 0, NULL);
+
+  bool acaba = false;
+  XEvent e;
+  while (!acaba) {
+     XNextEvent(dpy, &e);
+     switch (e.type) {
+     case Expose:
+        XSetForeground(dpy, gc, _colores[7].pixel);
+        XDrawLine(dpy, w, gc, 10, 60, 180, 20);
+        XFlush(dpy);
+        break;
+     case KeyPress:
+        break;
+     case ClientMessage:
+        if (e.xclient.data.l[0] == wmDelete) {
+           std::cout << "Destroy!" << std::endl;
+           acaba = true;
+        }
+        break;
+     case MapNotify:
+        int err = pthread_create(&thread, NULL, thread_fn, NULL);
+        if (err != 0) {
+           std::cerr << "No se puede invocar la función principal!";
+           acaba = true;
+        }
+        break;
+     }
+  }
+
+  XCloseDisplay(dpy);
+}
+
+namespace miniwin {
+
+void color(int col) {
+   XSetForeground(dpy, gc, _colores[col].pixel);
+}
+
+void linea(float x_ini, float y_ini, float x_fin, float y_fin) {
+   XDrawLine(dpy, w, gc, int(x_ini), int(y_ini), int(x_fin), int(y_fin));
+}
+
+void refresca() {
+   XFlush(dpy);
+}
+
+}
+
+#else 
+
+#error "MiniWin no se ha implementado en tu sistema operativo, lo siento!"
+
+#endif
