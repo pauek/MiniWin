@@ -55,6 +55,19 @@ void frame_real(int w, int h, int& rw, int &rh) {
    rh = frame.bottom - frame.top;
 }
 
+void newMemDC(int w, int h) {
+   if (hDCMem != NULL) {
+      DeleteObject(hBitmap);
+      DeleteDC(hDCMem);
+   }
+   log() << "New MemDC\n";
+   HDC hDC = GetDC(hWnd);
+   hDCMem  = CreateCompatibleDC(hDC);
+   hBitmap = CreateCompatibleBitmap (hDC, w, h);
+   SelectObject(hDCMem, hBitmap);
+   SetBkMode(hDCMem, TRANSPARENT);
+}
+
 int WINAPI WinMain (HINSTANCE hThisInstance,
                     HINSTANCE hPrevInstance,
                     LPSTR lpszArgument,
@@ -125,16 +138,7 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd,
       if (w == 0 && h == 0) break; // Al minimizar envia WM_SIZE(0,0)
 
       if (hDCMem == NULL || w != iWidth || h != iHeight) {
-         if (hDCMem != NULL) {
-            DeleteObject(hBitmap);
-            DeleteDC(hDCMem);
-         }
-         log() << "New MemDC\n";
-         HDC hDC = GetDC(hWnd);
-         hDCMem  = CreateCompatibleDC(hDC);
-         hBitmap = CreateCompatibleBitmap (hDC, w, h);
-         SelectObject(hDCMem, hBitmap);
-         SetBkMode(hDCMem, TRANSPARENT);
+         newMemDC(w, h);
          maybe_call_main();
       }
       break;
@@ -405,6 +409,7 @@ void vredimensiona(int ample, int alt) {
    int w, h;
    frame_real(iWidth, iHeight, w, h);
    SetWindowPos(hWnd, NULL, 0, 0, w, h, SWP_NOMOVE);
+   newMemDC(w, h);
 }
 
 void vcierra() {

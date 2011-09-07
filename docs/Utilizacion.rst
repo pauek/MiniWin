@@ -57,7 +57,10 @@ Hay 3 funciones relacionadas con las dimensiones de la ventana.
  
       vredimensiona(800, 600);
 
-   cambiará las dimensiones de la ventana a 800 por 600 píxeles.
+   cambiará las dimensiones de la ventana a 800 por 600 píxeles.  El
+   hecho de redimensionar la ventana implica que ésta se borrará, como
+   si hiciésemos :cpp:func:`borra` justo después del
+   :cpp:func:`vredimensiona`.
 
 .. cpp:function:: int vancho()
 
