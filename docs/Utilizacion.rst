@@ -37,7 +37,7 @@ minimices.  Algunas funciones utilizan coordenadas en esta
 ventana. Las coordenadas son un par ordenado de valores, donde el
 primer valor es *x* y el segundo es *y*:
 
-- La esquina superior-derecha es el orígen, con coordenadas (0,0).
+- La esquina superior-izquierda es el orígen, con coordenadas (0,0).
 
 - A medida que nos desplazamos a la derecha la coordenada *x* crece.
 
