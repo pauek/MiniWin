@@ -7,4 +7,5 @@ int main() {
    rectangulo(100, 100, 300, 200);
    texto(152, 142, "Hola, MiniWin!");
    refresca();
+   return 0;
 }

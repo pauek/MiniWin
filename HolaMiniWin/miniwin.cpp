@@ -8,6 +8,7 @@
  */
 
 #include <fstream>
+#include <sstream>
 #include <queue>
 #include <math.h>
 #include <process.h>
@@ -31,7 +32,12 @@ std::queue<int> _teclas;  // cola de teclas
 ////////////////////////////////////////////////////////////////////////////////
 
 std::ostream& log() {
+#if defined(DEBUG)
    static std::ofstream _log("log.txt");
+#else
+   static std::stringstream _log;
+   _log.str(""); // lo borra
+#endif
    return _log;
 }
 
@@ -218,7 +224,7 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd,
      push_it |= (wParam >= 65 && wParam <= 90);
 
      // Teclas de función
-     for (int i = 0; i < 10; i++) {
+     for (unsigned int i = 0; i < 10; i++) {
        push_it |= (wParam == (VK_F1 + i));
      }
 
