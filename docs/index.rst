@@ -27,6 +27,15 @@ MiniWin es una utilidad motivada por la realización de vídeos
 pedagógicos en la web sobre cursos de programación `minidosis.org
 <http://minidosis.org/C++>`_.
 
+Instalación Rápida
+------------------
+
+Si usas Code::Blocks, descarga el proyecto `HolaMiniWin
+<https://github.com/downloads/pauek/MiniWin/HolaMiniWin.zip>`_, ábrelo
+en Code::Blocks y ya puedes empezar trabajar.
+
+Si no, consulta el tema :ref:`Instalación <instalacion>`.
+
 Autores
 -------
 

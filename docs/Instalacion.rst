@@ -1,4 +1,6 @@
 
+.. _instalacion:
+
 Instalación
 ===========
 
@@ -12,6 +14,15 @@ empezando esto no es evidente). Entornos de programación como `Dev-C++
 <http://www.bloodshed.net/devcpp.html>`_, `Code::Blocks
 <http://www.codeblocks.org>`_ o `Geany <http://www.geany.org>`_
 permiten compilar este tipo de proyectos.
+
+Instalación Rápida para Code::Blocks
+------------------------------------
+
+Si usas Code::Blocks, descarga el proyecto `HolaMiniWin
+<https://github.com/downloads/pauek/MiniWin/HolaMiniWin.zip>`_, abre
+el fichero ``HolaMiniWin.cbp`` con Code::Blocks y ya puedes empezar
+trabajar.
+
 
 Creación de un proyecto en Code::Blocks que use MiniWin
 -------------------------------------------------------
