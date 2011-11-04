@@ -227,6 +227,15 @@ importante llamar a la acción :cpp:func:`refresca`:
 Funciones para teclas
 ---------------------
 
+En MiniWin se puede determinar si el usuario acaba de presionar una
+tecla (o hace un rato), con la función :cpp:func:`tecla`. Esta función
+no espera a que el usuario presione una tecla ya que esto
+interrumpiría el programa totalmente. Por eso uno de los valores que
+puede devolver :cpp:func:`tecla` es el valor ``NINGUNA`` para indicar
+que el usuario no ha presionado una tecla recientemente. Las teclas
+que se presionan se guardan en un *buffer* y cada llamada a
+:cpp:func:`tecla` las retorna una por una.
+
 .. cpp:function:: int tecla()
 
    Devuelve un entero para indicar si se acaba de presionar una
@@ -275,12 +284,62 @@ Funciones para teclas
       } 
 
 
+Funciones para el ratón
+-----------------------
+
+En MiniWin se puede saber donde está situado el puntero del ratón y
+también si los botones derecho y/o izquierdo estan presionados. Las
+funciones disponibles son las siguientes:
+
+.. cpp:function:: bool raton(float& x, float& y)
+
+   Obtiene las coordenadas de la posición del ratón (``x`` e ``y``), y
+   además devuelve un Booleano que indica si el ratón se encuentra
+   dentro de la ventana. Si el ratón está fuera de la ventana los
+   valores ``x`` e ``y`` no serán reales y hay que ignorar su valor.
+
+.. cpp:function:: bool raton_dentro()
+
+	Retorna un valor Booleano indicando si el ratón se encuentra dentro
+	de la ventana. Es importante llamar a esta función antes de obtener
+	las coordenadas de la posición del ratón ya que estas son correctas
+	solamente cuando el ratón está dentro de la ventana.
+
+.. cpp:function:: float raton_x()
+
+	Devuelve la coordenada ``x`` de la posición del ratón. Esta
+	posición es válida si el ratón se encuentra dentro de la ventana,
+	por eso es necesario antes llamar a :cpp:func:`raton_dentro` o
+	llamar directamente a :cpp:func:`raton`.
+
+.. cpp:function:: float raton_y()
+
+	Devuelve la coordenada ``y`` de la posición del ratón. Esta
+	posición es válida si el ratón se encuentra dentro de la ventana,
+	por eso es necesario antes llamar a :cpp:func:`raton_dentro` o
+	llamar directamente a :cpp:func:`raton`.
+
+.. cpp:function:: void raton_botones(bool& izq, bool& der)
+
+   Obtiene el estado de los botones derecho e izquierdo del ratón. Si
+   el valor Booleano ``izq`` es cierto el botón izquierdo está
+   presionado, y lo mismo ocurre para ``der`` con el botón derecho.
+
+.. cpp:function:: bool raton_boton_izq()
+
+   Retorna un booleano indicando si el botón izquierdo está presionado.
+
+.. cpp:function:: bool raton_boton_der()
+
+   Retorna un booleano indicando si el botón derecho está presionado.
+
+
 Funciones para mensajes
 -----------------------
 
 En MiniWin se puede mostrar un mensaje al usuario a través de una
 pequeña ventana. También se puede hacer una pregunta (tipo Sí/No)
-también usando una ventanita especial.
+usando una ventanita especial.
 
 .. cpp:function:: void mensaje(string msj)
 

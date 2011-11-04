@@ -1,11 +1,13 @@
 
 /*
- *  MiniWin: Un mini-conjunto de funciones para abrir una ventana, pintar en 
- *    ella y detectar la presión de algunas teclas. Básicamente para hacer 
+ *  MiniWin: Un mini-conjunto de funciones para abrir una ventana, pintar en
+ *    ella y detectar la presión de algunas teclas. Básicamente para hacer
  *    juegos sencillos.
  *
  *  (c) Pau Fernández, licencia MIT: http://es.wikipedia.org/wiki/MIT_License
  */
+
+// VERSION: 0.1.3
 
 #ifndef _MINIWIN_H_
 #define _MINIWIN_H_
@@ -19,7 +21,7 @@ std::ostream& log();
 // Funciones del API
 
 namespace miniwin {
-  
+
 void borra();
 void refresca();
 void mensaje(std::string msj);
@@ -44,13 +46,21 @@ void texto(float x, float y, const std::string& texto);
 
 int tecla();
 
-enum { 
-  ESCAPE, 
-  IZQUIERDA, DERECHA, ARRIBA, ABAJO, 
+bool  raton(float& x, float& y);
+bool  raton_dentro();
+float raton_x();
+float raton_y();
+void  raton_botones(bool& izq, bool& der);
+bool  raton_boton_izq();
+bool  raton_boton_der();
+
+enum {
+  ESCAPE,
+  IZQUIERDA, DERECHA, ARRIBA, ABAJO,
   F1, F2, F3, F4, F5, F6, F7, F8, F9, F10,
   ESPACIO,
   RETURN,
-  NINGUNA 
+  NINGUNA
 };
 
 enum {

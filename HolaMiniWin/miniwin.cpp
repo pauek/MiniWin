@@ -7,12 +7,15 @@
  *  (c) Pau Fernández, licencia MIT: http://es.wikipedia.org/wiki/MIT_License
  */
 
+// VERSION: 0.1.3
+
 #include <fstream>
 #include <sstream>
 #include <queue>
 #include <math.h>
 #include <process.h>
 #include <windows.h>
+#include <windowsx.h>
 
 #include "miniwin.h"
 
@@ -22,12 +25,15 @@ char szClassName[ ] = "MiniWin";
 
 // Variables globales //////////////////////////////////////////////////////////
 
-HWND            hWnd;          // ventana principal
-HBITMAP         hBitmap;       // bitmap para pintar off-screen
-int             iWidth  = 400; // ancho de la ventana
-int             iHeight = 300; // alto de la ventana
-HDC             hDCMem = NULL;   // Device Context en memoria
-std::queue<int> _teclas;  // cola de teclas
+HWND            hWnd;              // ventana principal
+HBITMAP         hBitmap;           // bitmap para pintar off-screen
+int             iWidth  = 400;     // ancho de la ventana
+int             iHeight = 300;     // alto de la ventana
+HDC             hDCMem = NULL;     // Device Context en memoria
+std::queue<int> _teclas;           // cola de teclas
+bool            _raton_dentro;     // el raton está dentro del 'client area'
+int             _xraton, _yraton;  // posicion del raton
+bool            _bot_izq, _bot_der;// botones izquierdo y derecho
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -200,6 +206,35 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd,
       EndPaint(hWnd, &ps);
       break;
    }
+   case WM_MOUSEMOVE: {
+      log() << "WM_MOUSEMOVE\n";
+      _raton_dentro = true;
+      _xraton = GET_X_LPARAM(lParam);
+      _yraton = GET_Y_LPARAM(lParam);
+      _bot_izq = wParam & MK_LBUTTON;
+      _bot_der = wParam & MK_RBUTTON;
+      break;
+   }
+   case WM_MOUSELEAVE: {
+      _raton_dentro = false;
+      break;
+   }
+   case WM_LBUTTONDOWN: {
+      _bot_izq = true;
+      break;
+   }
+   case WM_LBUTTONUP: {
+      _bot_izq = false;
+      break;
+   }
+   case WM_RBUTTONDOWN: {
+      _bot_der = true;
+      break;
+   }
+   case WM_RBUTTONUP: {
+      _bot_der = false;
+      break;
+   }
    case WM_KEYDOWN: {
      bool push_it = false;
 
@@ -281,6 +316,40 @@ int tecla() {
     }
     _teclas.pop();
     return ret;
+}
+
+bool raton(float& x, float& y) {
+   if (!_raton_dentro) {
+      return false;
+   }
+   x = _xraton;
+   y = _yraton;
+   return true;
+}
+
+bool raton_dentro() {
+   return _raton_dentro;
+}
+
+float raton_x() {
+   return _xraton;
+}
+
+float raton_y() {
+   return _yraton;
+}
+
+void raton_botones(bool& izq, bool& der) {
+   izq = _bot_izq;
+   der = _bot_der;
+}
+
+bool raton_boton_izq() {
+   return _bot_izq;
+}
+
+bool raton_boton_der() {
+   return _bot_der;
 }
 
 void espera(int miliseg) {
