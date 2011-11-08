@@ -41,7 +41,9 @@ $(cat miniwin.h)
 
 EOF
 
-cp ../miniwin.h   ../HolaMiniWin/miniwin.h
-cp ../miniwin.cpp ../HolaMiniWin/miniwin.cpp
+cp ../miniwin.h   ../HolaMiniWin-linux/miniwin.h
+cp ../miniwin.cpp ../HolaMiniWin-linux/miniwin.cpp
+cp ../miniwin.h   ../HolaMiniWin-windows/miniwin.h
+cp ../miniwin.cpp ../HolaMiniWin-windows/miniwin.cpp
 
 
