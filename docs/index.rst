@@ -29,11 +29,18 @@ pedagógicos en la web sobre cursos de programación `minidosis.org
 Instalación Rápida
 ------------------
 
-Si usas Code::Blocks, descarga el proyecto `HolaMiniWin
-<https://github.com/downloads/pauek/MiniWin/HolaMiniWin.zip>`_, ábrelo
-en Code::Blocks y ya puedes empezar trabajar.
+Si usas Code::Blocks, descarga uno de los proyectos siguientes:
 
-Si no, consulta el tema :ref:`Instalación <instalacion>`.
+- Para Windows, descarga `HolaMiniWin-windows <https://github.com/downloads/pauek/MiniWin/HolaMiniWin-windows.zip>`_.
+
+- Para Linux, descarga `HolaMiniWin-linux <https://github.com/downloads/pauek/MiniWin/HolaMiniWin-linux.tar.gz>`_.
+
+Una vez descargado, descomprime el archivo y dentro de la carpeta
+``HolaMiniWin`` verás un fichero con extensión ``.cbp`` (un proyecto
+Code::Blocks). Ábrelo y compila directamente. Te aparecerá una ventana
+que dice "Hola, MiniWin!". 
+
+Si no usas Code::Blocks, consulta el tema :ref:`Instalación <instalacion>`.
 
 Autores
 -------
