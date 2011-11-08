@@ -17,6 +17,7 @@
 #include <windows.h>
 #include <windowsx.h>
 
+#define MINIWIN_SOURCE
 #include "miniwin.h"
 
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);

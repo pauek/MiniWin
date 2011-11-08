@@ -14,8 +14,12 @@
 
 #include <iostream>
 
+#ifndef MINIWIN_SOURCE
 #define main _main_ // Super-cutre hack! (pero funciona)
+#endif
+
 int _main_();
+
 std::ostream& log();
 
 // Funciones del API
