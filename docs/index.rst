@@ -8,17 +8,16 @@ Documentación de MiniWin
 
 *Última actualización*: |today|.
 
-MiniWin es una mini-librería (para ser justos, no llega ni a eso)
-para poder abrir una ventana, pintar algunas cosas en ella y detectar
-la presión de algunas teclas. Tiene un objetivo *pedagógico*, sirve
-esencialmente para poder implementar programas muy simples (como
-pequeños juegos) que dibujen cosas por la pantalla y con los que se
-pueda interaccionar mínimamente. 
+MiniWin es una mini-librería (para ser justos, no llega ni a eso) para
+poder abrir una ventana, pintar en ella, detectar la presión de las
+teclas y el movimiento y los botones del ratón. Tiene un objetivo
+*pedagógico*, sirve esencialmente para poder implementar programas muy
+simples (como pequeños juegos) que dibujen cosas por la pantalla y con
+los que se pueda interaccionar mínimamente.
 
-Actualmente sirve solamente bajo Windows, pero la intención es que
-eventualmente funcione en Linux también (si álguien se ofrece a
-subvencionar un Mac, quizás entonces me plantee hacer incluso la
-versión Mac...).
+Actualmente funciona en Windows y Linux (si álguien se ofrece a
+subvencionar un MacBook, quizás entonces me plantee hacer la
+versión Mac OS X...).
 
 Motivación
 ----------

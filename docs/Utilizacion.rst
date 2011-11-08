@@ -344,7 +344,7 @@ usando una ventanita especial.
 .. cpp:function:: void mensaje(string msj)
 
    Muestra una pequeña ventana auxiliar con el mensaje *msj* y espera
-   que se presione el botón "Ok".
+   que se presione el botón "Ok". *[Esta función aún no está implementada en Linux]*
 
    Por ejemplo, si llamas a la acción así::
 
@@ -358,7 +358,7 @@ usando una ventanita especial.
 
    Muestra una ventana auxiliar con la pregunta que se pasa en *msj* y
    devuelve ``true`` o ``false`` en función de la contestación del
-   usuario.
+   usuario. *[Esta función aún no está implementada en Linux]*
 
    Por ejemplo, si llamas a la acción así::
 
