@@ -1,15 +1,4 @@
 
-/*
- *  MiniWin: Un mini-conjunto de funciones para abrir una ventana, pintar en
- *    ella y detectar la presión de algunas teclas. Básicamente para hacer
- *    juegos sencillos.
- *
- *  (c) Pau Fernández, licencia MIT: http://es.wikipedia.org/wiki/MIT_License
- */
-
-// VERSION: 0.2.0
-
-
 #ifndef _MINIWIN_H_
 #define _MINIWIN_H_
 
@@ -76,4 +65,3 @@ enum {
 } // namespace miniwin
 
 #endif
-

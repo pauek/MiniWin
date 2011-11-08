@@ -1,21 +1,26 @@
 
 /*
  *  MiniWin: Un mini-conjunto de funciones para abrir una ventana, pintar en
- *    ella y detectar la presiÛn de algunas teclas. B·sicamente para hacer
+ *    ella y detectar la presi√≥n de algunas teclas. B√°sicamente para hacer
  *    juegos sencillos.
  *
- *  (c) Pau Fern·ndez, licencia MIT: http://es.wikipedia.org/wiki/MIT_License
+ *  (c) Pau Fern√°ndez, licencia MIT: http://es.wikipedia.org/wiki/MIT_License
  */
 
-// VERSION: 0.1.3
+// VERSION: 0.2.0
+
 
 #ifndef _MINIWIN_H_
 #define _MINIWIN_H_
 
 #include <iostream>
 
+#ifndef MINIWIN_SOURCE
 #define main _main_ // Super-cutre hack! (pero funciona)
+#endif
+
 int _main_();
+
 std::ostream& log();
 
 // Funciones del API
@@ -68,6 +73,7 @@ enum {
   AMARILLO, MAGENTA, CYAN, BLANCO
 };
 
-}
+} // namespace miniwin
 
 #endif
+
