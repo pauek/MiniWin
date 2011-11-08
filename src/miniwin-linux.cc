@@ -76,9 +76,9 @@ void _handlekey(KeySym key) {
    case XK_Up:     _teclas.push(miniwin::ARRIBA); break;
    case XK_Down:   _teclas.push(miniwin::ABAJO); break;
    default: {
-      if (key >= int('0') && key <= int('9') ||
-          key >= int('A') && key <= int('Z') ||
-          key >= int('a') && key <= int('z')) {
+      if ((key >= int('0') && key <= int('9')) ||
+          (key >= int('A') && key <= int('Z')) ||
+          (key >= int('a') && key <= int('z'))) {
          _teclas.push(key);
       } else if (key >= XK_F1 && key <= XK_F10) {
          int dif = key - XK_F1;
@@ -347,6 +347,7 @@ void mensaje(string msj) {
 
 bool pregunta(string msj) {
    cerr << "Pregunta: " << msj << endl;
+   return false;
 }
 
 void espera(int miliseg) {
