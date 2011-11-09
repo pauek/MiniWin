@@ -290,7 +290,8 @@ void color(int col) {
 
 
 void refresca() {
-   _refresh();
+   XClearArea(_dsp, _win, 0, 0, 0, 0, True);
+   XFlush(_dsp);
 }
 
 void borra() {
