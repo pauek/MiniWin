@@ -46,4 +46,8 @@ cp ../miniwin.cpp ../HolaMiniWin-linux/miniwin.cpp
 cp ../miniwin.h   ../HolaMiniWin-windows/miniwin.h
 cp ../miniwin.cpp ../HolaMiniWin-windows/miniwin.cpp
 
-
+# Crea zip y tar
+pushd ..
+zip HolaMiniWin-windows.zip HolaMiniWin-windows/*
+tar czvf HolaMiniWin-linux.tar.gz HolaMiniWin-linux/
+popd 

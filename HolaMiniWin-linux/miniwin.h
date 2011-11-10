@@ -7,7 +7,7 @@
  *  (c) Pau Fernández, licencia MIT: http://es.wikipedia.org/wiki/MIT_License
  */
 
-// VERSION: 0.2.0
+// VERSION: 0.2.1
 
 
 #ifndef _MINIWIN_H_
