@@ -1,10 +1,11 @@
 
+#include <ctime>
 #include <cmath>
 using namespace std;
 #include "miniwin.h"
 using namespace miniwin;
 
-const int TAM = 500;
+const int TAM = 300;
 const int UN_SEGUNDO = 1000;
 
 // Rota con centro (cx, cy) un ángulo da
@@ -57,23 +58,33 @@ void pinta_esfera() {
 
 void pinta_agujas(float H, float M, float S) {
   pinta_esfera();
+  color_rgb(80, 80, 80);
+  aguja(S, TAM/2.0 * .85);
   color(BLANCO);
   aguja(H, TAM/2.0 * .5);
   aguja(M, TAM/2.0 * .95);
-  color_rgb(128, 128, 128);
-  aguja(S, TAM/2.0 * .85);
   refresca();
+}
+
+void hora_local(float& H, float& M, float& S) {
+  time_t rawtime;
+  time(&rawtime);
+  struct tm *timeinfo = localtime(&rawtime);
+  H = float(timeinfo->tm_hour) / 24.0 * 360.0;
+  M = float(timeinfo->tm_min)  / 60.0 * 360.0;
+  S = float(timeinfo->tm_sec)  / 60.0 * 360.0;
 }
 
 int main() {
   vredimensiona(TAM, TAM);
-  float hora = 0, minuto = 0, segundo = 0; // en decenas de grados
-  
+  float hora = 0, minuto = 0, segundo = 0; // en grados
+  hora_local(hora, minuto, segundo);
   while (tecla() != ESCAPE) {
     borra();
     pinta_esfera();
     pinta_agujas(hora, minuto, segundo);
-    espera(UN_SEGUNDO);
+    // la imprecisión se acumula irremediablemente...
+    espera(UN_SEGUNDO); 
     incrementa_un_segundo(hora, minuto, segundo);
   }
   vcierra();
