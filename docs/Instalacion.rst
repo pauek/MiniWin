@@ -18,10 +18,13 @@ permiten compilar este tipo de proyectos.
 Instalación Rápida para Code::Blocks
 ------------------------------------
 
-Si usas Code::Blocks, descarga el proyecto `HolaMiniWin
-<https://github.com/downloads/pauek/MiniWin/HolaMiniWin.zip>`_, abre
-el fichero ``HolaMiniWin.cbp`` con Code::Blocks y ya puedes empezar
-trabajar.
+Si usas Code::Blocks en Windows o Linux, descarga el proyecto
+`HolaMiniWin-windows
+<https://github.com/downloads/pauek/MiniWin/HolaMiniWin-windows.zip>`_
+u `HolaMiniWin-linux
+<https://github.com/downloads/pauek/MiniWin/HolaMiniWin-linux.tar.gz>`_,
+abre el fichero ``HolaMiniWin.cbp`` con Code::Blocks y ya puedes
+empezar trabajar.
 
 
 Creación de un proyecto en Code::Blocks que use MiniWin
@@ -203,5 +206,3 @@ Ahora, para compilar el proyecto, debes seleccionar la opción del menú
 aparece justo al lado de "Mayúsc + F9" (o si quieres, presiona esa
 combinación de teclas). Mira la ventana de mensajes para comprobar que
 todo sale bien.
-
-
