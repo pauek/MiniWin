@@ -128,7 +128,7 @@ siguiente:
 - Creas un nuevo proyecto en Dev-C++, del tipo "Windows Application",
   y le pones un nombre como por ejemplo "MiJuego":
 
-  .. image:: _static/devcpp1.png        
+  .. image:: _static/devcpp1.png
      :align: center
 
 - DevC++ te pedirá guardar el proyecto (un fichero ``.dev``) en un
