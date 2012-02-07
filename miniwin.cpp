@@ -7,7 +7,7 @@
  *  (c) Pau Fernández, licencia MIT: http://es.wikipedia.org/wiki/MIT_License
  */
 
-// VERSION: 0.2.1
+// VERSION: 0.2.2
 
 
 #if defined(_WIN32)

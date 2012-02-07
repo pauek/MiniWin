@@ -7,7 +7,7 @@
  *  (c) Pau Fernández, licencia MIT: http://es.wikipedia.org/wiki/MIT_License
  */
 
-// VERSION: 0.2.1
+// VERSION: 0.2.2
 
 
 #if defined(_WIN32)
@@ -589,9 +589,10 @@ void _handlekey(KeySym key) {
    case XK_Down:   _teclas.push(miniwin::ABAJO); break;
    default: {
       if ((key >= int('0') && key <= int('9')) ||
-          (key >= int('A') && key <= int('Z')) ||
-          (key >= int('a') && key <= int('z'))) {
+          (key >= int('A') && key <= int('Z'))) {
          _teclas.push(key);
+      } else if (key >= int('a') && key <= int('z')) {
+         _teclas.push(key - 32);
       } else if (key >= XK_F1 && key <= XK_F10) {
          int dif = key - XK_F1;
          _teclas.push(miniwin::F1 + dif);
