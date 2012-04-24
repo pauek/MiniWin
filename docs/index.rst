@@ -38,7 +38,7 @@ Si usas Code::Blocks, descarga uno de los proyectos siguientes:
 Una vez descargado, descomprime el archivo y dentro de la carpeta
 ``HolaMiniWin`` verás un fichero con extensión ``.cbp`` (un proyecto
 Code::Blocks). Ábrelo y compila directamente. Te aparecerá una ventana
-que dice "Hola, MiniWin!". 
+que dice "Hola, MiniWin!".
 
 Si no usas Code::Blocks, consulta el tema :ref:`Instalación <instalacion>`.
 

@@ -51,7 +51,7 @@ void pinta_esfera() {
       F2 = 0.86;
       color_rgb(80, 80, 120);
     }
-    linea(F1*x + TAM/2.0, F1*y + TAM/2.0, 
+    linea(F1*x + TAM/2.0, F1*y + TAM/2.0,
 	  F2*x + TAM/2.0, F2*y + TAM/2.0);
   }
 }
@@ -84,7 +84,7 @@ int main() {
     pinta_esfera();
     pinta_agujas(hora, minuto, segundo);
     // la imprecisión se acumula irremediablemente...
-    espera(UN_SEGUNDO); 
+    espera(UN_SEGUNDO);
     incrementa_un_segundo(hora, minuto, segundo);
   }
   vcierra();

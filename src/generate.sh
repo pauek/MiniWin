@@ -50,4 +50,4 @@ cp ../miniwin.cpp ../HolaMiniWin-windows/miniwin.cpp
 pushd ..
 zip HolaMiniWin-windows.zip HolaMiniWin-windows/*
 tar czvf HolaMiniWin-linux.tar.gz HolaMiniWin-linux/
-popd 
+popd
