@@ -9,7 +9,7 @@ usar MiniWin solamente hay que seguir 2 pasos importantes:
 
     #include "miniwin.h"
     using namespace miniwin;
-  
+
   Fíjate en que hay comillas dobles y no ángulos alrededor de
   ``miniwin.h`` en el ``#include``. El ``using namespace miniwin`` te
   será familiar por su equivalente con ``std``.
@@ -54,7 +54,7 @@ Hay 3 funciones relacionadas con las dimensiones de la ventana.
    Acción que cambia las dimensiones (en píxeles) de la ventana. El
    primer parámetro indica la anchura y el segundo la altura, ambos
    son enteros. Por ejemplo::
- 
+
       vredimensiona(800, 600);
 
    cambiará las dimensiones de la ventana a 800 por 600 píxeles.  El
@@ -106,7 +106,7 @@ nuestro programa. En definitiva, es importante *recordar llamar a
 Para cambiar el color con el que se pinta, hay que llamar a la función
 :cpp:func:`color` antes de pintar, es decir, todo lo que se pinta
 después de la instrucción::
-  
+
   color(ROJO);
 
 saldrá en color rojo.
@@ -129,7 +129,7 @@ En MiniWin disponemos de las siguiente acciones para pintar objetos:
    de ver.
 
    Por ejemplo::
-   
+
       color(AMARILLO);
       punto(10, 10);
       punto(9, 10);
@@ -155,7 +155,7 @@ En MiniWin disponemos de las siguiente acciones para pintar objetos:
 
    Dibuja el borde de un rectángulo con coordenadas horizontales (las
    *x*) *izq* y *der* y verticales (las *y*) *arr* y *aba*.
- 
+
 .. cpp:function:: void rectangulo_lleno(float izq, float arr, float der, float aba)
 
    Dibuja un rectángulo relleno con coordenadas horizontales (las
@@ -277,11 +277,11 @@ que se presionan se guardan en un *buffer* y cada llamada a
 
    El siguiente ejemplo detecta la presión de una tecla y si es la
    letra ``A`` se muestra un mensaje::
-   
+
       int t = tecla();
       if (t == int('A')) {
         mensaje("Has presionado la tecla 'A'");
-      } 
+      }
 
 
 Funciones para el ratón
