@@ -38,7 +38,7 @@ int             iWidth  = 400;     // ancho de la ventana
 int             iHeight = 300;     // alto de la ventana
 HDC             hDCMem = NULL;     // Device Context en memoria
 std::queue<int> _teclas;           // cola de teclas
-bool            _raton_dentro;     // el raton está dentro del 'client area'
+bool            _raton_dentro;     // el raton estï¿½ dentro del 'client area'
 int             _xraton, _yraton;  // posicion del raton
 bool            _bot_izq, _bot_der;// botones izquierdo y derecho
 
@@ -259,13 +259,13 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd,
 
      push_it |= (wParam == VK_RETURN);
 
-     // Números 0-9
+     // Nï¿½meros 0-9
      push_it |= (wParam >= 48 && wParam <= 57);
 
      // Letras A-Z
      push_it |= (wParam >= 65 && wParam <= 90);
 
-     // Teclas de función
+     // Teclas de funciï¿½n
      for (unsigned int i = 0; i < 10; i++) {
        push_it |= (wParam == (VK_F1 + i));
      }
@@ -881,7 +881,7 @@ float raton_x() {
 }
 
 float raton_y() {
-   return _mouse_state.x;
+   return _mouse_state.y;
 }
 
 bool raton_boton_izq() {
